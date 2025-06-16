@@ -13,7 +13,7 @@ def write_file(working_directory, file_path, content):
     
     try:
         if not os.path.exists(target_file_path):
-            os.makedirs(os.path.basename(target_file_path), exist_ok=True)
+            os.makedirs(os.path.dirname(target_file_path), exist_ok=True)
         
         if os.path.exists(target_file_path) and os.path.isdir(target_file_path):
             return f"Error: \"{target_file_path}\" is a directory, not a file"
@@ -28,13 +28,13 @@ def write_file(working_directory, file_path, content):
 
 schema_write_file = types.FunctionDeclaration(
     name="write_file",
-    description="Write the given content to the file at the target file path, constrained to the working directory.",
+    description="Write the given content to the file at the target file path, creating the file if it does not exist already, constrained to the working directory.",
     parameters=types.Schema(
         type=types.Type.OBJECT,
         properties={
             "file_path": types.Schema(
                 type=types.Type.STRING,
-                description="The target file path for writing the content, relative to the working directory.",
+                description="The target file path for writing the content, relative to the working directory. Creates this file if it does not exist already.",
             ),
             "content": types.Schema(
                 type=types.Type.STRING,

@@ -20,6 +20,7 @@ FUNCTION_NAMES = {
 def call_function(function_call_part, verbose=False):
     function_name = function_call_part.name
     function_args = function_call_part.args
+    function_args["working_directory"] = WORKING_DIRECTORY
     
     if verbose:
         print(f"Calling function: {function_name}({function_args})")
@@ -27,7 +28,7 @@ def call_function(function_call_part, verbose=False):
         print(f" - Calling function: {function_name}")
         
     if function_name in FUNCTION_NAMES:
-        function_result = FUNCTION_NAMES[function_name](WORKING_DIRECTORY, **function_args)
+        function_result = FUNCTION_NAMES[function_name](**function_args)
         
         return types.Content(
             role="tool",
