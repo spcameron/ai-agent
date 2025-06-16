@@ -1,6 +1,8 @@
 # run_python.py
 
 import os, subprocess
+from google.genai import types
+
 
 def run_python_file(working_directory, file_path):
     working_dir_path = os.path.abspath(working_directory)
@@ -23,14 +25,33 @@ def run_python_file(working_directory, file_path):
             cwd= working_dir_path,
             text=True,
             )
+        
         output_message = []
+        
         if not result.stdout.strip() and not result.stderr.strip():
             output_message.append("No output produced")
         else:
             output_message.append(f"STDOUT: {result.stdout}")
             output_message.append(f"STDERR: {result.stderr}")
+            
         if result.returncode != 0:
             output_message.append(f"Process exited with code {result.returncode}")
+            
         return "\n".join(output_message)
     except Exception as e:
         return f"Error: executing Python file: {e}"
+
+
+schema_run_python_file = types.FunctionDeclaration(
+    name="run_python_file",
+    description="Execute the Python file at the given file path, constrained to the working directory.",
+    parameters=types.Schema(
+        type=types.Type.OBJECT,
+        properties={
+            "file_path": types.Schema(
+                type=types.Type.STRING,
+                description="The file path of the target Python file, relative to the working directory.",
+            ),
+        },
+    ),
+)

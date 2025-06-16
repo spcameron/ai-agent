@@ -1,20 +1,10 @@
 # write_file.py
 
 import os
+from google.genai import types
+
 
 def write_file(working_directory, file_path, content):
-    """
-    Write the contents to file.
-    
-    Args:
-        working_directory: The root directory for sandboxing.
-        file_path: The target file path for the new or overwritten file.
-        content: The string the target file should contain.
-        
-    Returns:
-        String message reporting operation success or failure.
-    """
-    
     working_dir_path = os.path.abspath(working_directory)
     target_file_path = os.path.abspath(os.path.join(working_directory, file_path))
     
@@ -35,4 +25,21 @@ def write_file(working_directory, file_path, content):
     except Exception as e:
         return f"Error: {e}"
     
-    
+
+schema_write_file = types.FunctionDeclaration(
+    name="write_file",
+    description="Write the given content to the file at the target file path, constrained to the working directory.",
+    parameters=types.Schema(
+        type=types.Type.OBJECT,
+        properties={
+            "file_path": types.Schema(
+                type=types.Type.STRING,
+                description="The target file path for writing the content, relative to the working directory.",
+            ),
+            "content": types.Schema(
+                type=types.Type.STRING,
+                description="The content to be written to the target file path."
+            ),
+        },
+    ),
+)
