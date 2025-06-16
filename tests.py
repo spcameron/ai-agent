@@ -4,9 +4,10 @@ import unittest
 from functions.get_files_info import get_files_info
 from functions.get_file_content import get_file_content
 from functions.write_file import write_file
+from functions.run_python import run_python_file
 
 class TestGetFilesInfo(unittest.TestCase):
-    # @unittest.skip("Skipping GFI tests")
+    @unittest.skip("Skipping GFI tests")
     def test_get_files_info(self):
         result = get_files_info("calculator", ".")
         print("Result for current directory:")
@@ -28,7 +29,7 @@ class TestGetFilesInfo(unittest.TestCase):
         print(result)
         print("")
         
-    # @unittest.skip("Skipping GFC tests")
+    @unittest.skip("Skipping GFC tests")
     def test_get_file_content(self):
         # result = get_file_content("calculator", "lorem.txt")
         # print("Result for lorem.txt:")
@@ -50,7 +51,7 @@ class TestGetFilesInfo(unittest.TestCase):
         print(result)
         print("")
 
-    # @ unittest.skip("Skipping WF tests")
+    @ unittest.skip("Skipping WF tests")
     def test_write_file(self):
         result = write_file("calculator", "lorem.txt", "wait, this isn't lorem ipsum")
         print(result)
@@ -61,6 +62,24 @@ class TestGetFilesInfo(unittest.TestCase):
         print("")
 
         result = write_file("calculator", "/tmp/temp.txt", "this should not be allowed")
+        print(result)
+        print("")
+        
+    # @unittest.skip("Skipping RP tests")
+    def test_run_python(self):
+        result = run_python_file("calculator", "main.py")
+        print(result)
+        print("")
+        
+        result = run_python_file("calculator", "tests.py")
+        print(result)
+        print("")
+
+        result = run_python_file("calculator", "../main.py")
+        print(result)
+        print("")
+
+        result = run_python_file("calculator", "nonexistent.py")
         print(result)
         print("")
         
