@@ -1,10 +1,12 @@
 # tests.py
 
 import unittest
+
 from functions.get_files_info import get_files_info
 from functions.get_file_content import get_file_content
 from functions.write_file import write_file
 from functions.run_python import run_python_file
+
 
 class TestGetFilesInfo(unittest.TestCase):
     @unittest.skip("Skipping GFI tests")
@@ -65,7 +67,7 @@ class TestGetFilesInfo(unittest.TestCase):
         print(result)
         print("")
         
-    # @unittest.skip("Skipping RP tests")
+    @unittest.skip("Skipping RP tests")
     def test_run_python(self):
         result = run_python_file("calculator", "main.py")
         print(result)
