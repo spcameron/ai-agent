@@ -6,7 +6,7 @@ from google import genai
 from google.genai import types
 
 from prompts import system_prompt
-from call_function import available_functions
+from call_function import available_functions, call_function
 
 
 def main():
@@ -55,7 +55,11 @@ def generate_content(client, messages, verbose):
         return response.text
     
     for function_call_part in response.function_calls:
-        print(f"Calling function: {function_call_part.name}({function_call_part.args})")     
+        function_call_result = call_function(function_call_part, verbose)
+        if not function_call_result.parts[0].function_response.response:
+            raise Exception(f"Fatal error: The call to {function_call_part.name} returned no response")
+        elif verbose:
+            print(f"-> {function_call_result.parts[0].function_response.response}")
     
 
 if __name__ == "__main__":
