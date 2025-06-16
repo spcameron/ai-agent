@@ -3,9 +3,10 @@
 import unittest
 from functions.get_files_info import get_files_info
 from functions.get_file_content import get_file_content
+from functions.write_file import write_file
 
 class TestGetFilesInfo(unittest.TestCase):
-    @unittest.skip("Skipping GFI tests")
+    # @unittest.skip("Skipping GFI tests")
     def test_get_files_info(self):
         result = get_files_info("calculator", ".")
         print("Result for current directory:")
@@ -27,7 +28,7 @@ class TestGetFilesInfo(unittest.TestCase):
         print(result)
         print("")
         
-    
+    # @unittest.skip("Skipping GFC tests")
     def test_get_file_content(self):
         # result = get_file_content("calculator", "lorem.txt")
         # print("Result for lorem.txt:")
@@ -49,6 +50,19 @@ class TestGetFilesInfo(unittest.TestCase):
         print(result)
         print("")
 
+    # @ unittest.skip("Skipping WF tests")
+    def test_write_file(self):
+        result = write_file("calculator", "lorem.txt", "wait, this isn't lorem ipsum")
+        print(result)
+        print("")
+
+        result = write_file("calculator", "pkg/morelorem.txt", "lorem ipsum dolor sit amet")
+        print(result)
+        print("")
+
+        result = write_file("calculator", "/tmp/temp.txt", "this should not be allowed")
+        print(result)
+        print("")
         
 if __name__ == "__main__":
     unittest.main()
